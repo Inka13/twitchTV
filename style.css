@@ -1,0 +1,73 @@
+body {
+	font-family: raleway;
+	font-size: 14px;
+	background: linear-gradient(#6441a5, white) no-repeat;
+	background-size: 100%;
+}
+#head {
+	width: 49%;
+	margin-left: 25%;
+	display: flex;
+	color: white;
+}
+#twitch {
+	flex: 5;
+	font-size: 50px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 
+  Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 800;
+}
+#all, #on, #off {
+	height: 30px;
+	margin-top: 20px;
+	border-left: 1px solid white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	flex:1;
+}
+#results {
+	background: white;
+	width: 50%;
+	margin-left: 25%;
+	border-radius: 12px;
+}
+.result {
+	border-bottom:1px solid black;
+	margin-left: 2%;
+	width: 96%;
+	height: 60px;
+	display: flex;
+}
+.offline {
+	display: none;
+	}
+.logo {
+	
+	
+    Helvetica, Arial, "Lucida Grande", sans-serif;
+	height: 65%;
+	margin-top: 9px;
+	
+	flex: 1.5;
+	overflow: hidden;
+}
+
+
+.status, .name {
+	padding-right: 10px;
+	padding-top: 21px;
+	padding-left: 10px;
+	flex: 8;
+}
+.name {
+	flex: 3;
+}
+.logo img {
+	height: 100%;
+	
+}
+a {
+	text-decoration: none;
+	color: #6441a5;
+}

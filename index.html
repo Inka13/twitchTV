@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Local Weather App</title>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif+Caption" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<div id='head'>
+    <div id="twitch">twitch.tv</div>
+    <div id="all">All</div>
+    <div id="on">On</div>
+    <div id="off">Off</div>
+</div>
+<div id="results" class="offline"></div>
+<script>
+var height = screen.availHeight/3;   
+$(document).ready(function() {
+        $('body').css('height', height)
+        var users = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+        
+        for(var i=0; i<users.length; i++) {
+            var endpoint = "https://wind-bow.gomix.me/twitch-api/users/" + users[i];
+            $.ajax( {
+                dataType: "jsonp",
+                url: endpoint,
+                type: "GET",
+                success: function(result) {    
+                    $('#results').append("<div class='result offline' id='" + result.name + "'><div class='logo'><img src='" + result.logo + "'></div><div class='name'>" + result.name + "</div><div class='status' id='" + result._id +"'>Offline...</div></div"); 
+                },
+                error: function() {
+                    console.log("damnn");
+                }
+            });       
+        }
+        for(var i=0; i<users.length; i++) {
+            var endpoint = "https://wind-bow.gomix.me/twitch-api/streams/" + users[i];
+            $.ajax( {
+                dataType: "jsonp",
+                url: endpoint,
+                type: "GET",
+                success: function(result) {
+                    if(result.stream) {
+                        $('#'+ result.stream.channel._id).text("");
+                        $('#'+ result.stream.channel._id).append("<a href='" + result.stream.channel.url +"'>" + result.stream.channel.status + "</a>");
+                        $('#' + result.stream.channel.name).addClass('online');
+                    }
+                },
+                error: function() {
+                    console.log("damnn");
+                }
+            });       
+        }
+
+        $('#all').click(function() { 
+            $(this).css("background", "linear-gradient(#6f49b6,white)");
+            $('.result').removeClass('offline');
+            $('#results').removeClass('offline');
+            $('#on').css("background","rgba(0,0,0,0)");
+            $('#off').css("background","rgba(0,0,0,0)");
+        });
+        $('#on').click(function() {
+            $(this).css("background", "linear-gradient(#6f49b6,white)");
+            $('#results').removeClass('offline');
+            $('.result').addClass('offline');
+            $('.online').removeClass('offline');
+            $('#off').css("background","rgba(0,0,0,0)");
+            $('#all').css("background","rgba(0,0,0,0)");
+        });
+        $('#off').click(function() {
+            $(this).css("background", "linear-gradient(#6f49b6,white)");
+            $('#results').removeClass('offline');
+            $('.result').removeClass('offline');
+            $('.online').addClass('offline');
+            $('#all').css("background","rgba(0,0,0,0)");
+            $('#on').css("background","rgba(0,0,0,0)");
+        });
+        
+});
+
+
+</script>
+</body>
+</html>
